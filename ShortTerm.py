@@ -2,6 +2,8 @@ from enum import Enum
 from time import time,sleep
 from Sensors import Sensors
 from DrivingModule import CarController
+from picarx import PicarX
+
 
 
 # temp class while waiting for long term decision
@@ -27,7 +29,8 @@ class State(Enum):
   Park=5
 
 
-car=CarController()
+picarx=PicarX()
+car=CarController(picarx)
 sensors=Sensors()
 CURRENT_ZONE=Zone.NOZONE
 CURRENT_STATE=State.Wait

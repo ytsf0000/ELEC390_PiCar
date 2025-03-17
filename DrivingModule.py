@@ -1,8 +1,6 @@
-from picarx import PicarX  # Assuming this is your car control library
-
 class CarController:
-    def __init__(self):
-        self.car = PicarX()
+    def __init__(self,car):
+        self.car = car
 
     def move_forward(self, speed=30):
         self.car.forward(speed)
@@ -21,19 +19,3 @@ class CarController:
     def stop(self):
         self.car.stop()
 
-def main():
-    car_controller = CarController()
-
-    # Example usage
-    forward_action = Forward(car_controller)
-    backward_action = Backward(car_controller)
-    turn_left_action = TurnLeft(car_controller)
-    turn_right_action = TurnRight(car_controller)
-
-    # Simulate actions (you can replace this with a UI, joystick input, or another control mechanism)
-    forward_action.execute()
-    turn_left_action.execute()
-    car_controller.stop()
-
-if __name__ == "__main__":
-    main()
