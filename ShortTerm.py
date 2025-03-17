@@ -9,9 +9,6 @@ class Node:
   def __init__(self):
     pass
 
-def current_milli_time():
-    return round(time.time() * 1000)
-
 class Zone(Enum):
   NOZONE=0
   Pedestrian=1
@@ -62,8 +59,6 @@ def Park():
 
 def iteration():
   if(CURRENT_STATE == Zone.Wait):
-    Wait()
-  elif(CURRENT_STATE==State.Wait):
     Wait()
   elif(CURRENT_STATE==State.Forward):
     Forward()
