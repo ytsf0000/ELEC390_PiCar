@@ -21,34 +21,6 @@ class CarController:
     def stop(self):
         self.car.stop()
 
-class Forward:
-    def __init__(self, controller: CarController):
-        self.controller = controller
-
-    def execute(self):
-        self.controller.move_forward()
-
-class Backward:
-    def __init__(self, controller: CarController):
-        self.controller = controller
-
-    def execute(self):
-        self.controller.move_backward()
-
-class TurnLeft:
-    def __init__(self, controller: CarController):
-        self.controller = controller
-
-    def execute(self):
-        self.controller.turn_left()
-
-class TurnRight:
-    def __init__(self, controller: CarController):
-        self.controller = controller
-
-    def execute(self):
-        self.controller.turn_right()
-
 def main():
     car_controller = CarController()
 
