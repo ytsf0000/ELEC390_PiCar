@@ -1,48 +1,20 @@
-from enum import Enum
 from time import time,sleep
 from Sensors import Sensors
 from DrivingModule import CarController
 from picarx import PicarX
+from globals import Zone,State,Node,CURRENT_STATE,CURRENT_ZONE
 
-
-
-# temp class while waiting for long term decision
-class Node:
-  def __init__(self):
-    pass
-
-class Zone(Enum):
-  NOZONE=0
-  Pedestrian=1
-  Risk=2
-  School=3
-  Residential=4
-  Shops=5
-  Industrial=6
-
-class State(Enum):
-  Wait=0
-  Forward=1
-  TurnR=2
-  TurnL=3
-  RoundAbout=4
-  Park=5
+from Forward import Forward
 
 
 picarx=PicarX()
 car=CarController(picarx)
 sensors=Sensors()
-CURRENT_ZONE=Zone.NOZONE
-CURRENT_STATE=State.Wait
 
 destination=Node
 
 def Wait():
   car.move_forward(0)
-  return
-def Forward():
-  car.move_forward()
-  # check to obstacles and avoidance measures
   return
 def TurnR():
   # check what angle to put servo
@@ -59,12 +31,13 @@ def Park():
   # depends
   return
  
-
+stateTransition=False
 def iteration():
+  global stateTransition
   if(CURRENT_STATE == Zone.Wait):
     Wait()
   elif(CURRENT_STATE==State.Forward):
-    Forward()
+    stateTransition=Forward(car,sensors)
   elif(CURRENT_STATE==State.TurnR):
     TurnR()
   elif(CURRENT_STATE==State.TurnL):
@@ -79,15 +52,19 @@ def iteration():
 
 # check if we reached the node and state change when reached
 def nodeStateTransition():
+  global CURRENT_STATE
   return
 
 def main():
+  sensors.run()
+  print("ready")
   while(True):
     startTime=time()
 
     iteration()
     
-    nodeStateTransition()
+    if(stateTransition):
+      nodeStateTransition()
 
     endTime=time()
     if(endTime-startTime<1/120):
