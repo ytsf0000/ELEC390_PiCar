@@ -1,2 +1,2 @@
 def ProximitySensor(px):
-    return px.ultrasonic.read()
+    return px.get_distance()

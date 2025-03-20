@@ -12,13 +12,13 @@ classes=['duck_regular', 'sign_noentry', 'sign_oneway_left', 'sign_oneway_right'
 
 MAX_ANGLE=40
 camAngle=0
-drivingSpeed=30
+drivingSpeed=300
 
 
 # move camera and return closest sign
 def trackSign(aiData,controller):
   global camAngle
-  if(aiData.boxes is None):
+  if(aiData is None or aiData.boxes is None):
     return None
 
   largestArea=0
@@ -48,9 +48,7 @@ def dodge():
 # return true if unable to continue without checking long term, false otherwise
 def Forward(controller,sensors):
   global drivingSpeed
-    # reset car direction to straight
 
-  controller.turn_right(0,0)
 
   hardware=sensors.ReadHardware()
   if(hardware["lineTracker"]==[1,0,0]):
@@ -86,6 +84,5 @@ def Forward(controller,sensors):
   if(dodge()):
     return 0
 
-  controller.move_forward(speed=drivingSpeed)
-  # check to obstacles and avoidance measures
+  controller.turn_right(angle=0,speed=drivingSpeed)
   return 0

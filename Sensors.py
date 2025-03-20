@@ -33,4 +33,3 @@ class Sensors:
     self.picam2.configure(self.picam2.create_still_configuration(main={"size": (640, 640), "format": "RGB888"}))
     self.picam2.start()
     self.ai=AISensor()
-    return 0
