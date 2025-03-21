@@ -11,11 +11,11 @@ classes=['duck_regular', 'sign_noentry', 'sign_oneway_left', 'sign_oneway_right'
 
 MAX_ANGLE=40
 camAngle=0
-drivingSpeed=30
-distance=0
+DrivingSpeed=30
 angle=0
 TIME_TO_TURN=20
 turnTimer=0
+timeToLive=0
 
 # move camera and return closest sign
 def trackSign(aiData,controller):
@@ -48,10 +48,13 @@ def dodge():
   return False
 
 # return true if unable to continue without checking long term, false otherwise
-def Forward(controller,sensors,currentPosition,nextNode):
+def Forward(controller,sensors,iteration,currentPosition,nextNode):
   global angle
+  global camAngle
+
   global drivingSpeed
-  global timeToTurn
+  global turnTimer
+  global timeToLive
   hardware=sensors.ReadHardware()
   
   #print(hardware["lineTracker"])
@@ -95,8 +98,20 @@ def Forward(controller,sensors,currentPosition,nextNode):
   if(dodge()):
     return 0
   
-  controller.turn_right(angle=angle,speed=drivingSpeed)
-  
-  # TODO find a way to determine if we reached dest
-  
+  controller.turn_right(angle=angle,speed=DrivingSpeed)
+ 
+  if(timeToLive==0):
+    (x1, y1) = NODE_COORDS[currentPosition]
+    (x2, y2) = NODE_COORDS[nextNode]
+    # approximate the distance remove intersection distance
+    distance = math.hypot(x2 - x1, y2 - y1)-2*(10)
+    
+    # Adjust the travel time factor based on your car's speed.
+    travel_time = distance / 50.0  # This factor may need tuning.
+    # approx 120 iteration per second
+    timeToLive = travel_time*120
+  if(iteration>=timeToLive):
+    timeToLive=0
+    return 1
+
   return 0

@@ -34,6 +34,7 @@ def transitionState(state):
     ShortTerm.stateTransition=False
     ShortTerm.CURRENT_STATE=ShortTerm.State.Forward
     ShortTerm.stateStartIteration=0
+    ShortTerm.relativeIteration=0
 def drive_to_node(current_node, next_node):
     """
     Drives the car from the current node to the next node.

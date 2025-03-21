@@ -10,6 +10,7 @@ from Forward import Forward
 currentPosition=None
 nextNode=None
 stateStartIteration=0
+relativeIteration=0
 picarx=Picarx()
 car=CarController(picarx)
 sensors=Sensors(picarx)
@@ -37,13 +38,14 @@ def Park():
 def iteration():
   global stateTransition
   global CURRENT_STATE
-  
+  global relativeIteration
   startTime=time()
   
+  relativeIteration+=1
   if(CURRENT_STATE == State.Wait):
     stateTransition=Wait()
   elif(CURRENT_STATE==State.Forward):
-    stateTransition=Forward(car,sensors,currentPosition,nextNode)
+    stateTransition=Forward(car,sensors,relativeIteration,currentPosition,nextNode)
   elif(CURRENT_STATE==State.TurnR):
     TurnR()
   elif(CURRENT_STATE==State.TurnL):
