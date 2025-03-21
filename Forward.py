@@ -47,7 +47,7 @@ def dodge():
   return False
 
 # return true if unable to continue without checking long term, false otherwise
-def Forward(controller,sensors):
+def Forward(controller,sensors,currentPosition,nextNode):
   global angle
   global drivingSpeed
   global timeToTurn
@@ -90,6 +90,9 @@ def Forward(controller,sensors):
   # avoid things on read
   if(dodge()):
     return 0
-
+  
   controller.turn_right(angle=angle,speed=drivingSpeed)
+  
+
+  
   return 0

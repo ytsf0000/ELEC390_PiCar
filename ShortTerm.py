@@ -7,6 +7,9 @@ from globals import Zone,State,Node,CURRENT_STATE,CURRENT_ZONE
 from Forward import Forward
 
 
+currentPosition=None
+nextNode=None
+stateStartIteration=0
 picarx=Picarx()
 car=CarController(picarx)
 sensors=Sensors(picarx)
@@ -14,7 +17,7 @@ sensors=Sensors(picarx)
 destination=Node
 
 def Wait():
-  car.stop()
+  car.turn_right(0,0)
   return True
 def TurnR():
   # check what angle to put servo
@@ -34,10 +37,14 @@ def Park():
 stateTransition=False
 def iteration():
   global stateTransition
+  global CURRENT_STATE
+  
+  startTime=time()
+  
   if(CURRENT_STATE == State.Wait):
     stateTransition=Wait()
   elif(CURRENT_STATE==State.Forward):
-    stateTransition=Forward(car,sensors)
+    stateTransition=Forward(car,sensors,currentPosition,nextNode)
   elif(CURRENT_STATE==State.TurnR):
     TurnR()
   elif(CURRENT_STATE==State.TurnL):
@@ -48,30 +55,22 @@ def iteration():
     Park()
   else:
     print("Unknown State")
+  
+  endTime=time()
+  
+  if(endTime-startTime<1/120):
+    sleep(1/120-(endTime-startTime))
   return
 
-# check if we reached the node and state change when reached
-def nodeStateTransition():
-  global CURRENT_STATE
-  CURRENT_STATE=State.Wait 
-  return
-
-def main():
+def init():
   global CURRENT_STATE
   sensors.run()
-  CURRENT_STATE=State.Forward
+  CURRENT_STATE=State.Wait
+
+def main():
+  init()
   while(True):
-    #print(CURRENT_STATE)
-    startTime=time()
     iteration()
-    
-    if(stateTransition):
-      nodeStateTransition()
-
-    endTime=time()
-    if(endTime-startTime<1/120):
-      sleep(1/120-(endTime-startTime))
-
 
 
 if __name__=="__main__":
