@@ -14,7 +14,7 @@ sensors=Sensors(picarx)
 destination=Node
 
 def Wait():
-  car.move_forward(0)
+  car.stop()
   return True
 def TurnR():
   # check what angle to put servo
@@ -53,16 +53,16 @@ def iteration():
 # check if we reached the node and state change when reached
 def nodeStateTransition():
   global CURRENT_STATE
-  CURRENT_STATE=State.Forward
+  CURRENT_STATE=State.Wait 
   return
 
 def main():
+  global CURRENT_STATE
   sensors.run()
-  print("ready")
+  CURRENT_STATE=State.Forward
   while(True):
-    print(CURRENT_STATE)
+    #print(CURRENT_STATE)
     startTime=time()
-
     iteration()
     
     if(stateTransition):

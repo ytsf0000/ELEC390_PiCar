@@ -1,3 +1,4 @@
 def lineTrackingStatus(px):
-    gm_val_list=[]    
-    return px.get_line_status(gm_val_list)
+    a= px.get_grayscale_data()
+    t=800
+    return [a[0]>t,a[1]>t,a[2]>t]
