@@ -14,7 +14,7 @@ picarx=Picarx()
 car=CarController(picarx)
 sensors=Sensors(picarx)
 
-destination=Node
+stateTransition=False
 
 def Wait():
   car.turn_right(0,0)
@@ -34,7 +34,6 @@ def Park():
   # depends
   return
  
-stateTransition=False
 def iteration():
   global stateTransition
   global CURRENT_STATE

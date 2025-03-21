@@ -14,7 +14,8 @@ camAngle=0
 drivingSpeed=30
 distance=0
 angle=0
-timeToTurn=0
+TIME_TO_TURN=20
+turnTimer=0
 
 # move camera and return closest sign
 def trackSign(aiData,controller):
@@ -52,19 +53,22 @@ def Forward(controller,sensors,currentPosition,nextNode):
   global drivingSpeed
   global timeToTurn
   hardware=sensors.ReadHardware()
-  if (timeToTurn>0):
-    angle=0
-  timeToTurn=max(timeToTurn-1,0)
   
-  print(hardware["lineTracker"])
-  if(hardware["lineTracker"]==[1,0,0]):
-    angle=60
-    timeToTurn=20
-  elif(hardware["lineTracker"]==[0,0,1]):
-    angle=-60
-    turnToTurn=20
+  #print(hardware["lineTracker"])
+  if (timeToTurn<=0):
+    angle=0
+  if (hardware["lineTracker"][0]==1 and
+    hardware["lineTracker"][2]==1):
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][0]==1):
+    angle=MAX_ANGLE
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][2]==1):
+    angle=-1*MAX_ANGLE
+    turnTimer=TIME_TO_TURN
+  turnTimer=max(timeToTurn-1,0)
+  
   # check image tracking for lines ig
-  angle=-60
   aiData=sensors.ReadAI()
 
   sign=trackSign(aiData,controller)
@@ -93,6 +97,6 @@ def Forward(controller,sensors,currentPosition,nextNode):
   
   controller.turn_right(angle=angle,speed=drivingSpeed)
   
-
+  # TODO find a way to determine if we reached dest
   
   return 0
