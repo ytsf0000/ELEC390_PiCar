@@ -10,4 +10,5 @@ class AISensor:
   def read(self):
     return self.results
   def __init__(self):
+    self.results=None
     self.model = YOLO(Path_to_model)  # Load an official model or custom model

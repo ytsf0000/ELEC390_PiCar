@@ -1,21 +1,21 @@
 from time import time,sleep
 from Sensors import Sensors
 from DrivingModule import CarController
-from picarx import PicarX
+from picarx import Picarx
 from globals import Zone,State,Node,CURRENT_STATE,CURRENT_ZONE
 
 from Forward import Forward
 
 
-picarx=PicarX()
+picarx=Picarx()
 car=CarController(picarx)
-sensors=Sensors()
+sensors=Sensors(picarx)
 
 destination=Node
 
 def Wait():
-  car.move_forward(0)
-  return
+  car.stop()
+  return True
 def TurnR():
   # check what angle to put servo
   car.turn_right()
@@ -34,8 +34,8 @@ def Park():
 stateTransition=False
 def iteration():
   global stateTransition
-  if(CURRENT_STATE == Zone.Wait):
-    Wait()
+  if(CURRENT_STATE == State.Wait):
+    stateTransition=Wait()
   elif(CURRENT_STATE==State.Forward):
     stateTransition=Forward(car,sensors)
   elif(CURRENT_STATE==State.TurnR):
@@ -53,14 +53,16 @@ def iteration():
 # check if we reached the node and state change when reached
 def nodeStateTransition():
   global CURRENT_STATE
+  CURRENT_STATE=State.Wait 
   return
 
 def main():
+  global CURRENT_STATE
   sensors.run()
-  print("ready")
+  CURRENT_STATE=State.Forward
   while(True):
+    #print(CURRENT_STATE)
     startTime=time()
-
     iteration()
     
     if(stateTransition):

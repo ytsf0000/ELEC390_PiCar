@@ -1,6 +1,8 @@
 class CarController:
     def __init__(self,car):
         self.car = car
+        self.direction=0
+        self.speed=0
 
     def move_forward(self, speed=30):
         self.speed=speed
