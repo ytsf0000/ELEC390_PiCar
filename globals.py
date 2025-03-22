@@ -300,6 +300,240 @@ NODES_DATA = [
     },
 ]
 
+# contains sequence of movements from one intersection to another
+
+# PATH_DATA[]["current_intersection"][("","")]
+PATH_DATA = {
+    "PondsideAve.:QuackSt":{
+        "paths": {
+            ("MigrationAve.:QuackSt.", "BreadcrumbAve.:WaddleWay") : [], # hard code sequence of instructions here
+            ("MigrationAve.:QuackSt.", "PondsideAve.:WaddleWay") : [],
+            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:WaddleWay") : []
+        }
+    },
+    "MigrationAve.:QuackSt.": {
+        "paths": {
+            ("PondsideAve.:QuackSt", "AquaticAve.:WaddleWay") : [], # hard code sequence of instructions here
+            ("PondsideAve.:QuackSt", "MigrationAve.:WaddleWay") : [],
+            ("MigrationAve.:WaddleWay", "AquaticAve.:WaddleWay") : []
+        }
+    },
+    "AquaticAve.:WaddleWay": {
+        "paths": {
+            ("MigrationAve.:QuackSt.", "MigrationAve.:WaddleWay") : [], # hard code sequence of instructions here
+            ("MigrationAve.:QuackSt.", "AquaticAve.:WaterfoulWay") : [],
+            ("MigrationAve.:WaddleWay", "AquaticAve.:WaterfoulWay") : []
+        }
+    },
+    "MigrationAve.:WaddleWay": {
+        "paths": {
+            ("AquaticAve.:WaddleWay", "MigrationAve.:QuackSt.") : [], # hard code sequence of instructions here
+            ("AquaticAve.:WaddleWay", "PondsideAve.:WaddleWay") : [],
+            ("AquaticAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [],
+            ("MigrationAve.:QuackSt.", "PondsideAve.:WaddleWay") : [],
+            ("MigrationAve.:QuackSt.", "MigrationAve.:WaterfoulWay") : [],
+            ("PondsideAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : []
+        }
+    },
+    "PondsideAve.:WaddleWay": {
+        "paths": {
+            ("MigrationAve.:WaddleWay", "PondsideAve.:QuackSt") : [],
+            ("MigrationAve.:WaddleWay", "BreadcrumbAve.:WaddleWay") : [],
+            ("MigrationAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : [],
+            ("PondsideAve.:QuackSt", "BreadcrumbAve.:WaddleWay") : [],
+            ("PondsideAve.:QuackSt", "PondsideAve.:WaterfoulWay") : [],
+            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : []
+        }
+    },
+    "BreadcrumbAve.:WaddleWay": {
+        "paths":{
+            ("PondsideAve.:WaddleWay", "PondsideAve.:QuackSt") : [],
+            ("PondsideAve.:WaddleWay", "BreadcrumbAve.:TheCircle") : [],
+            ("PondsideAve.:QuackSt", "BreadcrumbAve.:TheCircle") : []
+        }
+    },
+    "AquaticAve.:WaterfoulWay": {
+        "paths": {
+            ("AquaticAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [],
+            ("AquaticAve.:WaddleWay", "AquaticAve.:FeatherSt.") : [],
+            ("MigrationAve.:WaterfoulWay", "AquaticAve.:FeatherSt.") : []
+        }
+    },
+    "MigrationAve.:WaterfoulWay": {
+        "paths": {
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:WaddleWay") : [],
+            ("AquaticAve.:WaterfoulWay", "PondsideAve.:WaterfoulWay") : [],
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [],
+            ("MigrationAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : [],
+            ("MigrationAve.:WaddleWay", "MigrationAve.:FeatherSt.") : [],
+            ("PondsideAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : []
+        }
+    },
+    "PondsideAve.:WaterfoulWay": {
+        "paths": {
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:WaddleWay") : [],
+            ("MigrationAve.:WaterfoulWay", "TheCircle:WaterfoulWay") : [],
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [],
+            ("PondsideAve.:WaddleWay", "TheCircle:WaterfoulWay") : [],
+            ("PondsideAve.:WaddleWay", "PondsideAve.:FeatherSt.") : [],
+            ("TheCircle:WaterfoulWay", "PondsideAve.:FeatherSt.") : []
+        }
+    },
+    "TheCircle:WaterfoulWay": {
+        "paths": {
+            ("PondsideAve.:WaterfoulWay", "TheCircle:FeatherSt.") : [],
+            ("PondsideAve.:WaterfoulWay", "BreadcrumbAve.:TheCircle") : [],
+            ("TheCircle:FeatherSt.", "BreadcrumbAve.:TheCircle") : []
+        }
+    },
+    "AquaticAve.:FeatherSt.": {
+        "paths": {
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [],
+            ("AquaticAve.:WaterfoulWay", "AquaticAve.:BeckSt.") : [],
+            ("MigrationAve.:FeatherSt.", "AquaticAve.:BeckSt.") : []
+        }
+    },
+    "MigrationAve.:FeatherSt.": {
+        "paths": {
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:WaterfoulWay") : [],
+            ("AquaticAve.:FeatherSt.", "PondsideAve.:FeatherSt.") : [],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [],
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [],
+            ("MigrationAve.:WaterfoulWay", "MigrationAve.:BeckSt.") : [],
+            ("PondsideAve.:FeatherSt.", "MigrationAve.:BeckSt.") : []
+        }
+    },
+    "PondsideAve.:FeatherSt.": {
+        "paths": {
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:WaterfoulWay") : [],
+            ("MigrationAve.:FeatherSt.", "TheCircle:FeatherSt.") : [],
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt." ) : [],
+            ("PondsideAve.:WaterfoulWay", "TheCircle:FeatherSt.") : [],
+            ("PondsideAve.:WaterfoulWay", "PondsideAve.:BeckSt.") : [],
+            ("TheCircle:FeatherSt.", "PondsideAve.:BeckSt.") : []
+        }
+    },
+    "TheCircle:FeatherSt.": {
+        "paths": {
+            ("PondsideAve.:FeatherSt.", "TheCircle:WaterfoulWay") : [],
+            ("PondsideAve.:FeatherSt.", "DabblerDr.:TheCircle") : [],
+            ("TheCircle:WaterfoulWay", "DabblerDr.:TheCircle") : [],
+        }
+    },
+    "AquaticAve.:BeckSt.": {
+        "paths": {
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [],
+            ("MigrationAve.:BeckSt.", "MigrationAve.:MallardSt.") : [],
+        }
+    },
+    "MigrationAve.:BeckSt.": {
+        "paths": {
+            ("AquaticAve.:BeckSt.", "MigrationAve.:FeatherSt.") : [],
+            ("AquaticAve.:BeckSt.", "PondsideAve.:BeckSt.") : [],
+            ("AquaticAve.:BeckSt.", "MigrationAve.:MallardSt.") : [],
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt.") : [],
+            ("MigrationAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [],
+            ("PondsideAve.:BeckSt.", "MigrationAve.:MallardSt.") : []
+        }
+    },
+    "PondsideAve.:BeckSt.": {
+        "paths": {
+            ("MigrationAve.:BeckSt.", "PondsideAve.:FeatherSt.") : [],
+            ("MigrationAve.:BeckSt.", "DabblerDr.:BeckSt.") : [],
+            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : [],
+            ("PondsideAve.:FeatherSt.", "DabblerDr.:BeckSt.") : [],
+            ("PondsideAve.:FeatherSt.", "PondsideAve.:MallardSt.") : [],
+            ("DabblerDr.:BeckSt.", "PondsideAve.:MallardSt.") : []
+        }
+    },
+    "DabblerDr.:BeckSt.": {
+        "paths": {
+            ("PondsideAve.:BeckSt.", "DabblerDr.:TheCircle") : [],
+            ("PondsideAve.:BeckSt.", "DrakeDr.:BeckSt.") : [],
+            ("PondsideAve.:BeckSt.", "DabblerDr.:MallardSt.") : [],
+            ("DabblerDr.:TheCircle", "DrakeDr.:BeckSt.") : [],
+            ("DabblerDr.:TheCircle", "DabblerDr.:MallardSt.") : [],
+            ("DrakeDr.:BeckSt.", "DabblerDr.:MallardSt.") : []
+        }
+    },
+    "DrakeDr.:BeckSt.": {
+        "paths": {
+            ("DabblerDr.:BeckSt.", "DucklingDr.:BeckSt.") : [],
+            ("DabblerDr.:BeckSt.", "DrakeDr.:MallardSt.") : [],
+            ("DucklingDr.:BeckSt.", "DrakeDr.:MallardSt.") : [],
+        }
+    },
+    "DucklingDr.:BeckSt.": {
+        "paths": {
+            ("DrakeDr.:BeckSt.", "TailAve.:BeckSt.") : [],
+            ("DrakeDr.:BeckSt.", "DucklingDr.:MallardSt.") : [],
+            ("TailAve.:BeckSt.", "DucklingDr.:MallardSt.") : []
+        }
+    },
+    "TailAve.:BeckSt.": {
+        "paths": {
+            ("DucklingDr.:BeckSt.", "TailAve.:TheCircle") : []
+        }
+    },
+    "MigrationAve.:MallardSt.": {
+        "paths": {
+            ("AquaticAve.:BeckSt.", "MigrationAve.:BeckSt.") : [],
+            ("AquaticAve.:BeckSt.", "PondsideAve.:MallardSt.") : [],
+            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : []
+        }
+    },
+    "PondsideAve.:MallardSt.": {
+        "paths": {
+            ("MigrationAve.:MallardSt.", "DabblerDr.:MallardSt.") : [],
+            ("MigrationAve.:MallardSt.", "PondsideAve.:BeckSt.") : [],
+            ("PondsideAve.:BeckSt.", "DabblerDr.:MallardSt.") : []
+        }
+    },
+    "DabblerDr.:MallardSt.": {
+        "paths": {
+            ("PondsideAve.:MallardSt.", "DabblerDr.:BeckSt.") : [],
+            ("PondsideAve.:MallardSt.", "DrakeDr.:MallardSt.") : [],
+            ("PondsideAve.:MallardSt.", "DucklingDr.:MallardSt.") : [],
+            ("DabblerDr.:BeckSt.", "DrakeDr.:MallardSt.") : [],
+            ("DabblerDr.:BeckSt.", "DucklingDr.:MallardSt.") : [],
+            ("DrakeDr.:MallardSt.", "DucklingDr.:MallardSt." ) : [],
+        }
+    },
+    "DrakeDr.:MallardSt.": {
+        "paths": {
+            ("DabblerDr.:MallardSt.", "DrakeDr.:BeckSt.") : []
+        }
+    },
+    "DucklingDr.:MallardSt.": {
+        "paths": {
+            ("DabblerDr.:MallardSt.", "DucklingDr.:BeckSt.") : []
+        }
+    },
+    "BreadcrumbAve.:TheCircle": {
+        "paths": {
+            ("TheCircle:WaterfoulWay", "BreadcrumbAve.:WaddleWay") : [],
+            ("TheCircle:WaterfoulWay","TailAve.:TheCircle") : [],
+            ("BreadcrumbAve.:WaddleWay", "TailAve.:TheCircle") : []
+        }
+    },
+    "TailAve.:TheCircle": {
+        "paths": {
+            ("DabblerDr.:TheCircle", "BreadcrumbAve.:TheCircle") : [],
+            ("DabblerDr.:TheCircle", "TailAve.:BeckSt.") : [],
+            ("BreadcrumbAve.:TheCircle", "TailAve.:BeckSt.") : []
+        }
+    },
+    "DabblerDr.:TheCircle": {
+        "paths": {
+            ("TheCircle:FeatherSt.", "TailAve.:TheCircle") : [],
+            ("TheCircle:FeatherSt.", "DabblerDr.:BeckSt.") : [],
+            ("TailAve.:TheCircle", "DabblerDr.:BeckSt.") : []
+        }
+    },
+}
+
+
 NODE_COORDS = {}
 MAP_GRAPH   = {}
 
