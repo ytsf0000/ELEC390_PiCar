@@ -302,7 +302,8 @@ NODES_DATA = [
 
 # contains sequence of movements from one intersection to another
 
-# PATH_DATA[]["current_intersection"][("","")]
+# List of actions to travel from current intersection to next intersection is retrieved through 
+# PATH_DATA[current intersection]["paths"][(previous intersection, next intersection)]
 PATH_DATA = {
     "PondsideAve.:QuackSt":{
         "paths": {
