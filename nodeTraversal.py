@@ -1,118 +1,63 @@
-import time
-import math
-from DrivingModule import CarController
-from globals import NODE_COORDS
+from globals import PATH_DATA
 from pathfinding import a_star_search, find_nearest_node
 
-import ShortTerm
+class NodeTraversal:
+    def __init__(self):
+        pass  # No car integration for now
 
-def calculate_heading(current_node, next_node):
-    #Calculate the heading angle (in degrees) from the current node to the next node.
-    (x1, y1) = NODE_COORDS[current_node]
-    (x2, y2) = NODE_COORDS[next_node]
-    angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
-    return angle
+    def execute_path(self, start_node, dest_x, dest_y):
+        """
+        Finds the nearest node to (dest_x, dest_y), computes the path using A* search,
+        and executes the movement instructions step by step.
+        """
+        # Find nearest destination node
+        destination_node = find_nearest_node(dest_x, dest_y)
+        print(f"🎯 Nearest node to ({dest_x}, {dest_y}) is: {destination_node}")
 
-def turn_to_heading(target_angle):
-    """
-    Turn the car towards the target angle.
-    For simplicity, this demo uses the car's turn functions.
-    You might need to integrate sensor feedback for precise control.
-    """
-    # decide whether to use turn_right or turn_left based on the sign of the angle.
-    
-    """
-    if target_angle >= 0:
-        car.turn_right(speed=30, angle=target_angle)
-    else:
-        car.turn_left(speed=30, angle=target_angle)
-    """
-    # Simulate the time needed to complete the turn.
-    time.sleep(1)
+        # Get the path from start_node to destination_node
+        path = a_star_search(start_node, destination_node)
+        if not path or len(path) < 3:
+            print("❌ No valid path found or path too short!")
+            return
+        
+        print(f"\n🗺️  Generated Path: {' -> '.join(path)}\n")
 
-def transitionState(state):
-    ShortTerm.stateTransition=False
-    ShortTerm.CURRENT_STATE=ShortTerm.State.Forward
-    ShortTerm.stateStartIteration=0
-    ShortTerm.relativeIteration=0
-def drive_to_node(current_node, next_node):
-    """
-    Drives the car from the current node to the next node.
-    """
-    
-    reachedNode=False
-    transitionState(ShortTerm.State.Wait)
-    ShortTerm.nextNode=next_node
-    ShortTerm.currentPosition=current_node
-    # TODO might prove usefull to Jim algo
-    #heading = calculate_heading(current_node, next_node)
-    #print(f"Turning to heading {heading:.2f}° from {current_node} to {next_node}")
-    while (ShortTerm.stateTransition==False):
-      # Turn towards the target heading.
-      # TODO call Jim funtion to turn
-      # TODO update current position
-      ShortTerm.stateTransition=True
-      continue
+        # Start traversal using the first node as the current node
+        current_node = path[0]
+        intersection_node = path[1]
+        next_node = path[2]
 
-    transitionState(ShortTerm.State.Forward)
-    while(ShortTerm.stateTransition==False):
-      # TODO update current position
-      #ShortTerm.iteration()
-      continue
-    
-    
-    transitionState(ShortTerm.State.Wait)
-    ShortTerm.iteration()
+        index = 0
+        while index < len(path) - 2:
+            if intersection_node not in PATH_DATA or "paths" not in PATH_DATA[intersection_node]:
+                print(f"⚠️ No path data for {intersection_node}, skipping...")
+            else:
+                key = (current_node, next_node)
+                if key in PATH_DATA[intersection_node]["paths"]:
+                    movements = PATH_DATA[intersection_node]["paths"][key]
+                    print(f"🚦 Moving from '{current_node}' to '{next_node}' via '{intersection_node}'")
+                    for step in movements:
+                        if isinstance(step, list) and len(step) == 2:
+                            command, value = step
+                            print(f"➡️  {command.capitalize()} {value} units/degrees")
+                        elif isinstance(step, str):
+                            print(f"🛑 Special Instruction: {step}")
+                    print("✅ Instruction sequence completed.\n")
+                else:
+                    print(f"⚠️ No movement instructions for {current_node} -> {next_node} via {intersection_node}, proceeding without instructions.")
+            
+            # Shift indices for next iteration
+            index += 1
+            if index + 2 < len(path):
+                current_node = path[index]
+                intersection_node = path[index + 1]
+                next_node = path[index + 2]
+            else:
+                break
 
-    # Estimate travel time based on the Euclidean distance between nodes.
-    #(x1, y1) = NODE_COORDS[current_node]
-    #(x2, y2) = NODE_COORDS[next_node]
-    #distance = math.hypot(x2 - x1, y2 - y1)
-    
-    # Adjust the travel time factor based on your car's speed.
-    #travel_time = distance / 50.0  # This factor may need tuning.
-    #print(f"Driving for {travel_time:.2f} seconds to reach {next_node}")
-    #time.sleep(travel_time)
-    
-    # Stop the car at the node.
-    #car.stop()
-    #time.sleep(0.5)
-
-def traverse_path(path):
-    """
-    Traverses the full path by driving from one node to the next.
-    """
-    
-    print("Starting node traversal...")
-    for i in range(len(path) - 1):
-        current_node = path[i]
-        next_node = path[i + 1]
-        drive_to_node(current_node, next_node)
-    print("Traversal complete!")
-
-"""
-Possible Initialization of Function below:
-"""
-def main():
-    ShortTerm.init() 
-    # Define starting node and destination coordinates.
-    start_node = "PondsideAve.:QuackSt"
-    destination_x, destination_y = 585, 135
-    
-    # Determine the nearest node to the destination.
-    goal_node = find_nearest_node(destination_x, destination_y)
-    print(f"Destination node: {goal_node}")
-    
-    # Compute the optimal path using A* search.
-    path = a_star_search(start_node, goal_node)
-    if not path:
-        print("No valid path found.")
-        return
-    
-    print("Computed path:", " -> ".join(path))
-    
-    # Traverse the path.
-    traverse_path(path)
-
+# ✅ **Test the function**
 if __name__ == "__main__":
-    main()
+    traversal = NodeTraversal()
+
+    # Example: Start at 'PondsideAve.:QuackSt' and go to (585, 135)
+    traversal.execute_path("PondsideAve.:QuackSt", 585, 135)
