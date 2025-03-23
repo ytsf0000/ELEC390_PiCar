@@ -32,15 +32,25 @@ def trackSign(aiData,controller):
       if(b.conf<0.70):
         continue
       if(float(b.xywh[0][2])*float(b.xywh[0][3])>largestArea):
-        print(float(b.cls[0]))
         if(re.search("^sign_.*$",classes[int(b.cls[0])]) is not None):
           largestArea=b.xywh[0][2]*b.xywh[0][3]
           closestSign=b
+      print(b.xywhn)
+      print(controller.speed)
+      print(math.exp(-camAngle/MAX_ANGLE/2))
       if(float(b.xywhn[0][0])>0.5):
-        delta=-controller.speed/15-math.exp(-2*camAngle/MAX_ANGLE)
+        delta=controller.speed/15-math.exp(-camAngle/MAX_ANGLE/2)
+      else:
+        delta=-controller.speed/15-math.exp(camAngle/MAX_ANGLE/2)
+      delta*=40/180
+      print(delta)
+
   
 
   camAngle=max(min(MAX_ANGLE,camAngle+delta),-MAX_ANGLE)
+  print(camAngle)
+  if(closestSign is None):
+    camAngle=0
 
   controller.turnCam(camAngle)
   return closestSign
