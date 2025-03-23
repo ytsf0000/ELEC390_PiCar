@@ -21,12 +21,16 @@ class NodeTraversal:
             state=ShortTerm.State.TurnR
         elif(command=="turn_left"):
             state=ShortTerm.State.TurnL
+        elif(command=="wait"):
+            state=ShortTerm.State.Wait
+        
         self.transitionState(state)
         ShortTerm.value=value
 
         while(ShortTerm.stateTransition==False):
             # TODO update current position
-            #ShortTerm.iteration()
+            ShortTerm.iteration()
+            # ShortTerm.stateTransition=True
             continue
 
 
@@ -83,10 +87,16 @@ class NodeTraversal:
                 next_node = path[index + 2]
             else:
                 break
+        self.transitionState(ShortTerm.State.Wait)
+        ShortTerm.iteration()
+
+
+
 
 # ✅ **Test the function**
 if __name__ == "__main__":
     traversal = NodeTraversal()
+    ShortTerm.init()
 
     # Example: Start at 'PondsideAve.:QuackSt' and go to (585, 135)
     traversal.execute_path("PondsideAve.:QuackSt", 585, 135)

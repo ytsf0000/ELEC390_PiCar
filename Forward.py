@@ -20,24 +20,25 @@ timeToLive=0
 # move camera and return closest sign
 def trackSign(aiData,controller):
   global camAngle
-  if(aiData is None or aiData.boxes is None):
+  if(aiData is None):
     return None
 
   largestArea=0
   closestSign=None
-  for b in aiData.boxes:
-    if(b.conf<0.70):
-      continue
-    if(b.xywh.w*b.xywh.h>largestArea):
-      if(re.search("^sign_.*$",classes[b.cls]) is not None):
-        largestArea=b.xywh.w*b.xywh.h
-        closestSign=b
-  if(b is None):
-    return None
-  
   delta=0
-  if(b.xywhn.x>0.5):
-    delta=-controller.speed/15-math.exp(-2*camAngle/MAX_ANGLE)
+
+  for r in aiData:
+    for b in r.boxes:
+      if(b.conf<0.70):
+        continue
+      if(float(b.xywh[0][2])*float(b.xywh[0][3])>largestArea):
+        print(float(b.cls[0]))
+        if(re.search("^sign_.*$",classes[int(b.cls[0])]) is not None):
+          largestArea=b.xywh[0][2]*b.xywh[0][3]
+          closestSign=b
+      if(float(b.xywhn[0][0])>0.5):
+        delta=-controller.speed/15-math.exp(-2*camAngle/MAX_ANGLE)
+  
 
   camAngle=max(min(MAX_ANGLE,camAngle+delta),-MAX_ANGLE)
 
@@ -63,10 +64,10 @@ def Forward(controller,sensors,iteration,distance):
   if (hardware["lineTracker"][0]==1 and
     hardware["lineTracker"][2]==1):
     turnTimer=TIME_TO_TURN
-  elif(hardware["lineTracker"][0]==1):
+  elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
     angle=MAX_ANGLE
     turnTimer=TIME_TO_TURN
-  elif(hardware["lineTracker"][2]==1):
+  elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
     angle=-1*MAX_ANGLE
     turnTimer=TIME_TO_TURN
   turnTimer=max(turnTimer-1,0)
@@ -78,7 +79,7 @@ def Forward(controller,sensors,iteration,distance):
 
   # store last known sign somewhere since cam might see it when we are besides it
   if(sign is not None and 1):# at sign
-    signType=classes[sign.cls]
+    signType=classes[int(sign.cls[0])]
     if signType=='sign_noentry':
       return 1
     elif signType == 'sign_oneway_left':
@@ -102,9 +103,10 @@ def Forward(controller,sensors,iteration,distance):
  
   if(timeToLive==0):
     # Adjust the travel time factor based on your car's speed.
-    travel_time = distance / 1.0  # This factor may need tuning.
+    travel_time = distance / 20.0  # This factor may need tuning.
     # approx 120 iteration per second
     timeToLive = travel_time*120
+  
   if(iteration>=timeToLive):
     timeToLive=0
     return 1

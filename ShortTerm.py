@@ -24,11 +24,11 @@ def Wait():
 def TurnR():
   # check what angle to put servo
   car.turn_right()
-  return
+  return 1
 def TurnL():
   # check what angle to put servo
   car.turn_left()
-  return
+  return 1
 def RoundAbout():
   # more complex logic
   return
@@ -48,13 +48,13 @@ def iteration():
   elif(CURRENT_STATE==State.Forward):
     stateTransition=Forward(car,sensors,relativeIteration,value)
   elif(CURRENT_STATE==State.TurnR):
-    TurnR()
+    stateTransition=TurnR()
   elif(CURRENT_STATE==State.TurnL):
-    TurnL()
+    stateTransition=TurnL()
   elif(CURRENT_STATE==State.RoundAbout):
-    RoundAbout()
+    stateTransition=RoundAbout()
   elif(CURRENT_STATE==State.Park):
-    Park()
+    stateTransition=Park()
   else:
     print("Unknown State")
   
@@ -67,7 +67,7 @@ def iteration():
 def init():
   global CURRENT_STATE
   sensors.run()
-  CURRENT_STATE=State.Wait
+  CURRENT_STATE=State.Forward
 
 def main():
   init()
