@@ -314,90 +314,91 @@ class State(Enum):
 PATH_DATA = {
     "PondsideAve.:QuackSt":{
         "paths": {
-            ("MigrationAve.:QuackSt.", "BreadcrumbAve.:WaddleWay") : [["forwards", 150], ["turn_right", 90], ["forwards", 82]], 
-            ("MigrationAve.:QuackSt.", "PondsideAve.:WaddleWay") : [["turn_right", 116], ["forwards", 54]],
-            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:WaddleWay") : [["turn_left", 64], ["forwards", 102]],
-            ("BreadcrumbAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["forwards", 184]], 
-            ("PondsideAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_left", 116], ["forwards", 138]],
-            ("PondsideAve.:WaddleWay", "BreadcrumbAve.:WaddleWay") : [["turn_right", 64], ["forwards", 65], ["turn_right", 90], ["forwards", 82]],
+            ("MigrationAve.:QuackSt.", "BreadcrumbAve.:WaddleWay") : [["straight", 150], ["turn_right", 90], ["straight", 82]], 
+            ("MigrationAve.:QuackSt.", "PondsideAve.:WaddleWay") : [["turn_right", 116], ["straight", 54]],
+            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:WaddleWay") : [["turn_left", 64], ["straight", 102]],
+            ("BreadcrumbAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["straight", 184]], 
+            ("PondsideAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_left", 116], ["straight", 138]],
+            ("PondsideAve.:WaddleWay", "BreadcrumbAve.:WaddleWay") : [["turn_right", 64], ["straight", 65], ["turn_right", 90], ["straight", 82]],
         }
     },
     "MigrationAve.:QuackSt.": {
         "paths": {
-            ("PondsideAve.:QuackSt", "AquaticAve.:WaddleWay") : [["forwards", 88], ["turn_left", 38], ["forwards", 115], ["turn_left", 52], ["forwards", 31]],
-            ("PondsideAve.:QuackSt", "MigrationAve.:WaddleWay") : [["turn_left", 90], ["forwards", 49]],
-            ("MigrationAve.:WaddleWay", "AquaticAve.:WaddleWay") : [["forwards", 18], ["turn_left", 90], ["forwards", 46], ["turn_left", 38], ["forwards", 115], ["turn_left", 52], ["forwards", 31]],
+            ("PondsideAve.:QuackSt", "AquaticAve.:WaddleWay") : [["straight", 88], ["turn_left", 38], ["straight", 115], ["turn_left", 52], ["straight", 31]],
+            ("PondsideAve.:QuackSt", "MigrationAve.:WaddleWay") : [["turn_left", 90], ["straight", 49]],
+            ("MigrationAve.:WaddleWay", "AquaticAve.:WaddleWay") : [["straight", 18], ["turn_left", 90], ["straight", 46], ["turn_left", 38], ["straight", 115], ["turn_left", 52], ["straight", 31]],
 
-            ("AquaticAve.:WaddleWay", "PondsideAve.:QuackSt") : [["forwards", 171]],
-            ("MigrationAve.:WaddleWay", "PondsideAve.:QuackSt") : [["turn_right", 90], ["forwards", 91]],
-            ("AquaticAve.:WaddleWay", "MigrationAve.:WaddleWay") : [["turn_right", 90], ["forwards", 31]]
+            ("AquaticAve.:WaddleWay", "PondsideAve.:QuackSt") : [["straight", 171]],
+            ("MigrationAve.:WaddleWay", "PondsideAve.:QuackSt") : [["turn_right", 90], ["straight", 91]],
+            ("AquaticAve.:WaddleWay", "MigrationAve.:WaddleWay") : [["turn_right", 90], ["straight", 31]]
         }
     },
     "AquaticAve.:WaddleWay": { 
         "paths": {
-            ("MigrationAve.:QuackSt.", "AquaticAve.:WaterfoulWay") : [["forwards", 87]],
-            ("MigrationAve.:WaddleWay", "AquaticAve.:WaterfoulWay") : [["forwards", 22], ["turn_left", 90], ["forwards", 25]],
-            ("MigrationAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_right", 90], ["forwards", 31], ["turn_right", 90], ["forwards", 30]], 
-            ("AquaticAve.:WaterfoulWay", "MigrationAve.:QuackSt.") : [["forwards", 86], ["turn_right", 90], ["forwards", 30]],
+            ("MigrationAve.:QuackSt.", "AquaticAve.:WaterfoulWay") : [["straight", 87]],
+            ("MigrationAve.:WaddleWay", "AquaticAve.:WaterfoulWay") : [["straight", 22], ["turn_left", 90], ["straight", 25]],
+            ("MigrationAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_right", 90], ["straight", 31], ["turn_right", 90], ["straight", 30]], 
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:QuackSt.") : [["straight", 86], ["turn_right", 90], ["straight", 30]],
         }
     },
     "MigrationAve.:WaddleWay": { 
         "paths": {
-            ("MigrationAve.:QuackSt.", "MigrationAve.:WaterfoulWay") : [["forwards", 85]],
-            ("PondsideAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [["forwards", 20], ["turn_left", 90], ["forwards", 26]],
-            ("MigrationAve.:QuackSt.", "AquaticAve.:WaddleWay") : [["turn_right", 90], ["forwards", 26]], 
-            ("PondsideAve.:WaddleWay", "AquaticAve.:WaddleWay") : [["forwards", 107]],
-            ("MigrationAve.:WaterfoulWay", "AquaticAve.:WaddleWay") : [["turn_left", 90], ["forwards", 19]],
-            ("PondsideAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_right", 90], ["forwards", 31]],
-            ("MigrationAve.:WaterfoulWay", "MigrationAve.:QuackSt.") : [["forwards", 91]]
+            ("MigrationAve.:QuackSt.", "MigrationAve.:WaterfoulWay") : [["straight", 85]],
+            ("PondsideAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [["straight", 20], ["turn_left", 90], ["straight", 26]],
+            ("MigrationAve.:QuackSt.", "AquaticAve.:WaddleWay") : [["turn_right", 90], ["straight", 26]], 
+            ("PondsideAve.:WaddleWay", "AquaticAve.:WaddleWay") : [["straight", 107]],
+            ("MigrationAve.:WaterfoulWay", "AquaticAve.:WaddleWay") : [["turn_left", 90], ["straight", 19]],
+            ("PondsideAve.:WaddleWay", "MigrationAve.:QuackSt.") : [["turn_right", 90], ["straight", 31]],
+            ("MigrationAve.:WaterfoulWay", "MigrationAve.:QuackSt.") : [["straight", 91]]
         }
     },
     "PondsideAve.:WaddleWay": {
         "paths": {
-            ("PondsideAve.:QuackSt", "MigrationAve.:WaddleWay") : [["turn_right", 90], ["forwards", 47], ["turn_left", 17]],
-            ("PondsideAve.:QuackSt", "PondsideAve.:WaterfoulWay") : [["forwards", 56]],
+            ("PondsideAve.:QuackSt", "MigrationAve.:WaddleWay") : [["turn_right", 90], ["straight", 47], ["turn_left", 17]],
+            ("PondsideAve.:QuackSt", "PondsideAve.:WaterfoulWay") : [["straight", 56]],
             ("BreadcrumbAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : [["turn_right", 30], ["turn_left", 100]],
-            ("BreadcrumbAve.:WaddleWay", "MigrationAve.:WaddleWay") : [["forwards", 124], ["turn_left", 17]],
-            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:QuackSt") : [["turn_right", 90], ["forwards", 80]],
-            ("PondsideAve.:WaterfoulWay", "MigrationAve.:WaddleWay") : [["turn_left", 90], ["forwards", 54], ["turn_left", 17]],
-            ("PondsideAve.:WaterfoulWay", "PondsideAve.:QuackSt") : [["forwards", 142]],
+            ("BreadcrumbAve.:WaddleWay", "MigrationAve.:WaddleWay") : [["straight", 124], ["turn_left", 17]],
+            ("BreadcrumbAve.:WaddleWay", "PondsideAve.:QuackSt") : [["turn_right", 90], ["straight", 80]],
+            ("PondsideAve.:WaterfoulWay", "MigrationAve.:WaddleWay") : [["turn_left", 90], ["straight", 54], ["turn_left", 17]],
+            ("PondsideAve.:WaterfoulWay", "PondsideAve.:QuackSt") : [["straight", 142]],
         }
     },
     "BreadcrumbAve.:WaddleWay": {
         "paths":{
-            ("PondsideAve.:QuackSt", "BreadcrumbAve.:TheCircle") : [["forwards", 86], ["turn_right", 45], ["forwards", 23]],
-            ("PondsideAve.:QuackSt", "PondsideAve.:WaddleWay") : [["turn_right", 90], ["forwards", 66], []],
-            ("BreadcrumbAve.:TheCircle", "PondsideAve.:WaddleWay") : [["turn_left", 90], ["forwards", 89], ["turn_right", 17], ["forwards", 38]],
-            ("BreadcrumbAve.:TheCircle", "PondsideAve.:QuackSt") : [["forwards", 141], ["turn_left", 45], ["forwards", 33], ["turn_left", 45], ["forwards", 71]]
+            ("PondsideAve.:QuackSt", "BreadcrumbAve.:TheCircle") : [["straight", 86], ["turn_right", 45], ["straight", 23]],
+            ("PondsideAve.:QuackSt", "PondsideAve.:WaddleWay") : [["turn_right", 90], ["straight", 66], []],
+            ("BreadcrumbAve.:TheCircle", "PondsideAve.:WaddleWay") : [["turn_left", 90], ["straight", 89], ["turn_right", 17], ["straight", 38]],
+            ("BreadcrumbAve.:TheCircle", "PondsideAve.:QuackSt") : [["straight", 141], ["turn_left", 45], ["straight", 33], ["turn_left", 45], ["straight", 71]]
         }
     },
     "AquaticAve.:WaterfoulWay": {
         "paths": {
-            ("AquaticAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [["turn_left", 90], ["forwards", 45]],
-            ("AquaticAve.:WaddleWay", "AquaticAve.:FeatherSt.") : [["forwards", 99]], 
-            ("AquaticAve.:FeatherSt.", "AquaticAve.:WaddleWay") : [["forwards", 92]],
-            ("AquaticAve.:FeatherSt.", "MigrationAve.:WaterfoulWay") : [["turn_right", 90], ["forwards", 30]],
+            ("AquaticAve.:WaddleWay", "MigrationAve.:WaterfoulWay") : [["turn_left", 90], ["straight", 45]],
+            ("AquaticAve.:WaddleWay", "AquaticAve.:FeatherSt.") : [["straight", 99]], 
+            ("AquaticAve.:FeatherSt.", "AquaticAve.:WaddleWay") : [["straight", 92]],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:WaterfoulWay") : [["turn_right", 90], ["straight", 30]],
         }
     },
     "MigrationAve.:WaterfoulWay": { 
         "paths": {
-            ("AquaticAve.:WaterfoulWay", "MigrationAve.:WaddleWay") : [["forwards", 19], ["turn_left", 90], ["forwards", 26]],
-            ("AquaticAve.:WaterfoulWay", "PondsideAve.:WaterfoulWay") : [["forwards", 99]],
-            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [["turn_right", 90], ["forwards", 20]],
-            ("MigrationAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : [["turn_left", 90], ["forwards", 38]],
-            ("MigrationAve.:WaddleWay", "MigrationAve.:FeatherSt.") : [["forwards", 82]],
-            ("MigrationAve.:FeatherSt.", "MigrationAve.:WaddleWay") : [["forwards", 88]],
-            ("MigrationAve.:FeatherSt.", "PondsideAve.:WaterfoulWay") : [["turn_right", 90], ["forwards", 16]],
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:WaddleWay") : [["straight", 19], ["turn_left", 90], ["straight", 26]],
+            ("AquaticAve.:WaterfoulWay", "PondsideAve.:WaterfoulWay") : [["straight", 99]],
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [["turn_right", 90], ["straight", 20]],
+            ("MigrationAve.:WaddleWay", "PondsideAve.:WaterfoulWay") : [["turn_left", 90], ["straight", 38]],
+            ("MigrationAve.:WaddleWay", "MigrationAve.:FeatherSt.") : [["straight", 82]],
+            ("MigrationAve.:FeatherSt.", "MigrationAve.:WaddleWay") : [["straight", 88]],
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:WaterfoulWay") : [["turn_right", 90], ["straight", 16]],
         }
     },
-    "PondsideAve.:WaterfoulWay": {
+    "PondsideAve.:WaterfoulWay": { # Jim
         "paths": {
-            ("MigrationAve.:WaterfoulWay", "PondsideAve.:WaddleWay") : [],
-            ("MigrationAve.:WaterfoulWay", "TheCircle:WaterfoulWay") : [],
-            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [],
-            ("PondsideAve.:WaddleWay", "TheCircle:WaterfoulWay") : [],
-            ("PondsideAve.:WaddleWay", "PondsideAve.:FeatherSt.") : [],
-            ("TheCircle:WaterfoulWay", "PondsideAve.:FeatherSt.") : []
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:WaddleWay") : [["straight", 35], ["turn_left", 60], ["straight", 16]],
+            ("MigrationAve.:WaterfoulWay", "TheCircle:WaterfoulWay") : [["straight", 77], ["turn_right", 60], ["straight", 7]],
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [["turn_right", 90], ["straight", 17]],
+            ("PondsideAve.:WaddleWay", "TheCircle:WaterfoulWay") : [["turn_left", 90], ["turn_right", 60],  ["straight", 7]],
+            ("PondsideAve.:WaddleWay", "PondsideAve.:FeatherSt.") : [["straight", 62], ["turn_left", 30]],
+            ("PondsideAve.:FeatherSt.", "PondsideAve.:WaddleWay") : [["straight", 61]],
+            ("PondsideAve.:FeatherSt.", "TheCircle:WaterfoulWay") : [["turn_right", 140]]
         }
     },
     "TheCircle:WaterfoulWay": {
@@ -409,29 +410,29 @@ PATH_DATA = {
     },
     "AquaticAve.:FeatherSt.": {
         "paths": {
-            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 14]],
-            ("AquaticAve.:WaterfoulWay", "AquaticAve.:BeckSt.") : [["Straight", 84]],
-            ("MigrationAve.:FeatherSt.", "AquaticAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 45]]
+            ("AquaticAve.:WaterfoulWay", "MigrationAve.:FeatherSt.") : [["straight", 15],["turn_left", -60], ["straight", 14]],
+            ("AquaticAve.:WaterfoulWay", "AquaticAve.:BeckSt.") : [["straight", 84]],
+            ("MigrationAve.:FeatherSt.", "AquaticAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 45]]
         }
     },
     "MigrationAve.:FeatherSt.": {
         "paths": {
-            ("AquaticAve.:FeatherSt.", "MigrationAve.:WaterfoulWay") : [["Straight", 15],["turn_left", -60], ["Straight", 14]],
-            ("AquaticAve.:FeatherSt.", "PondsideAve.:FeatherSt.") : [["Straight", 54.5]],
-            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["turn_right", 60], ["Straight", 27.5], "STOP SIGN"],
-            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 15]],
-            ("MigrationAve.:WaterfoulWay", "MigrationAve.:BeckSt.") : [["Straight", 84]],
-            ("PondsideAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 38.5]]
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:WaterfoulWay") : [["straight", 15],["turn_left", -60], ["straight", 14]],
+            ("AquaticAve.:FeatherSt.", "PondsideAve.:FeatherSt.") : [["straight", 54.5]],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["turn_right", 60], ["straight", 27.5], "STOP SIGN"],
+            ("MigrationAve.:WaterfoulWay", "PondsideAve.:FeatherSt.") : [["straight", 15],["turn_left", -60], ["straight", 15]],
+            ("MigrationAve.:WaterfoulWay", "MigrationAve.:BeckSt.") : [["straight", 84]],
+            ("PondsideAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 38.5]]
         }
     },
     "PondsideAve.:FeatherSt.": {
         "paths": {
-            ("MigrationAve.:FeatherSt.", "PondsideAve.:WaterfoulWay") : [["Straight", 15],["turn_left", -60], ["Straight", 25.5]],
-            ("MigrationAve.:FeatherSt.", "TheCircle:FeatherSt.") : [["Straight", 46.5]],
-            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt." ) : [["turn_right", 60], ["Straight", 27.5], "STOP SIGN"],
-            ("PondsideAve.:WaterfoulWay", "TheCircle:FeatherSt.") : ["STOP SIGN", ["Straight", 15],["turn_left", -60]],
-            ("PondsideAve.:WaterfoulWay", "PondsideAve.:BeckSt.") : ["STOP SIGN", ["Straight", 84]],
-            ("TheCircle:FeatherSt.", "PondsideAve.:BeckSt.") : [["Straight", 15], ["turn_left", -60],["Straight", 38.5]]
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:WaterfoulWay") : [["straight", 15],["turn_left", -60], ["straight", 25.5]],
+            ("MigrationAve.:FeatherSt.", "TheCircle:FeatherSt.") : [["straight", 46.5]],
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt." ) : [["turn_right", 60], ["straight", 27.5], "STOP SIGN"],
+            ("PondsideAve.:WaterfoulWay", "TheCircle:FeatherSt.") : ["STOP SIGN", ["straight", 15],["turn_left", -60]],
+            ("PondsideAve.:WaterfoulWay", "PondsideAve.:BeckSt.") : ["STOP SIGN", ["straight", 84]],
+            ("TheCircle:FeatherSt.", "PondsideAve.:BeckSt.") : [["straight", 15], ["turn_left", -60],["straight", 38.5]]
         }
     },
     "TheCircle:FeatherSt.": {
@@ -443,29 +444,29 @@ PATH_DATA = {
     },
     "AquaticAve.:BeckSt.": {
         "paths": {
-            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 15]],
-            ("AquaticAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [["Straight", 75], ["turn_left", 60], ["Straight", 15]],
-            ("MigrationAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["Straight", 79]],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 15]],
+            ("AquaticAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [["straight", 75], ["turn_left", 60], ["straight", 15]],
+            ("MigrationAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["straight", 79]],
         }
     },
     "MigrationAve.:BeckSt.": {
         "paths": {
-            ("AquaticAve.:BeckSt.", "MigrationAve.:FeatherSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 38]],
-            ("AquaticAve.:BeckSt.", "PondsideAve.:BeckSt.") : [["Straight", 60]],
-            ("AquaticAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["turn_right", 60], ["Straight", 17]],
-            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 15]],
-            ("MigrationAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [["Straight", 79]],
-            ("PondsideAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 34]]
+            ("AquaticAve.:BeckSt.", "MigrationAve.:FeatherSt.") : [["straight", 15],["turn_left", -60], ["straight", 38]],
+            ("AquaticAve.:BeckSt.", "PondsideAve.:BeckSt.") : [["straight", 60]],
+            ("AquaticAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["turn_right", 60], ["straight", 17]],
+            ("MigrationAve.:FeatherSt.", "PondsideAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 15]],
+            ("MigrationAve.:FeatherSt.", "MigrationAve.:MallardSt.") : [["straight", 79]],
+            ("PondsideAve.:BeckSt.", "MigrationAve.:MallardSt.") : [["straight", 15],["turn_left", -60], ["straight", 34]]
         }
     },
     "PondsideAve.:BeckSt.": {
         "paths": {
-            ("MigrationAve.:BeckSt.", "PondsideAve.:FeatherSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 38]],
-            ("MigrationAve.:BeckSt.", "DabblerDr.:BeckSt.") : [["Straight", 43]],
-            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["turn_right", 60], ["Straight", 17]],
-            ("PondsideAve.:FeatherSt.", "DabblerDr.:BeckSt.") : [["Straight", 15], ["turn_left", 60]],
-            ("PondsideAve.:FeatherSt.", "PondsideAve.:MallardSt.") : [["Straight", 79]],
-            ("DabblerDr.:BeckSt.", "PondsideAve.:MallardSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 43.5]]
+            ("MigrationAve.:BeckSt.", "PondsideAve.:FeatherSt.") : [["straight", 15],["turn_left", -60], ["straight", 38]],
+            ("MigrationAve.:BeckSt.", "DabblerDr.:BeckSt.") : [["straight", 43]],
+            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["turn_right", 60], ["straight", 17]],
+            ("PondsideAve.:FeatherSt.", "DabblerDr.:BeckSt.") : [["straight", 15], ["turn_left", 60]],
+            ("PondsideAve.:FeatherSt.", "PondsideAve.:MallardSt.") : [["straight", 79]],
+            ("DabblerDr.:BeckSt.", "PondsideAve.:MallardSt.") : [["straight", 15],["turn_left", -60], ["straight", 43.5]]
         }
     },
     "DabblerDr.:BeckSt.": {
@@ -499,16 +500,16 @@ PATH_DATA = {
     },
     "MigrationAve.:MallardSt.": {
         "paths": {
-            ("AquaticAve.:BeckSt.", "MigrationAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 30]],
-            ("AquaticAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["Straight", 60]],
-            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 32]]
+            ("AquaticAve.:BeckSt.", "MigrationAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 30]],
+            ("AquaticAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["straight", 60]],
+            ("MigrationAve.:BeckSt.", "PondsideAve.:MallardSt.") : [["straight", 15],["turn_left", -60], ["straight", 32]]
         }
     },
     "PondsideAve.:MallardSt.": {
         "paths": {
-            ("MigrationAve.:MallardSt.", "DabblerDr.:MallardSt.") : [["Straight", 39]],
-            ("MigrationAve.:MallardSt.", "PondsideAve.:BeckSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 26.5]],
-            ("PondsideAve.:BeckSt.", "DabblerDr.:MallardSt.") : [["Straight", 15],["turn_left", -60], ["Straight", 28.5]]
+            ("MigrationAve.:MallardSt.", "DabblerDr.:MallardSt.") : [["straight", 39]],
+            ("MigrationAve.:MallardSt.", "PondsideAve.:BeckSt.") : [["straight", 15],["turn_left", -60], ["straight", 26.5]],
+            ("PondsideAve.:BeckSt.", "DabblerDr.:MallardSt.") : [["straight", 15],["turn_left", -60], ["straight", 28.5]]
         }
     },
     "DabblerDr.:MallardSt.": {
