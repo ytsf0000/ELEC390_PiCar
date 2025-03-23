@@ -1,9 +1,37 @@
 from globals import PATH_DATA
 from pathfinding import a_star_search, find_nearest_node
+import ShortTerm
 
 class NodeTraversal:
     def __init__(self):
         pass  # No car integration for now
+
+    def transitionState(self,state):
+        ShortTerm.stateTransition=False
+        ShortTerm.CURRENT_STATE=state
+        ShortTerm.stateStartIteration=0
+        ShortTerm.relativeIteration=0
+
+    def executeInstruction(self,instruction):
+        command, value = instruction
+        state=ShortTerm.State.Wait
+        if(command=="forwards" or command=="Straight"):
+            state=ShortTerm.State.Forward
+        elif(command=="turn_right"):
+            state=ShortTerm.State.TurnR
+        elif(command=="turn_left"):
+            state=ShortTerm.State.TurnL
+        self.transitionState(state)
+        ShortTerm.value=value
+
+        while(ShortTerm.stateTransition==False):
+            # TODO update current position
+            #ShortTerm.iteration()
+            continue
+
+
+
+        return
 
     def execute_path(self, start_node, dest_x, dest_y):
         """
@@ -39,6 +67,7 @@ class NodeTraversal:
                     for step in movements:
                         if isinstance(step, list) and len(step) == 2:
                             command, value = step
+                            self.executeInstruction(step)
                             print(f"➡️  {command.capitalize()} {value} units/degrees")
                         elif isinstance(step, str):
                             print(f"🛑 Special Instruction: {step}")

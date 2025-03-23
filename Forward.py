@@ -1,6 +1,6 @@
 import re
 import math
-from globals import State,NEXT_STATE
+from globals import State,NEXT_STATE,NODE_COORDS
 
 
 # V1 classes
@@ -48,7 +48,7 @@ def dodge():
   return False
 
 # return true if unable to continue without checking long term, false otherwise
-def Forward(controller,sensors,iteration,currentPosition,nextNode):
+def Forward(controller,sensors,iteration,distance):
   global angle
   global camAngle
 
@@ -58,7 +58,7 @@ def Forward(controller,sensors,iteration,currentPosition,nextNode):
   hardware=sensors.ReadHardware()
   
   #print(hardware["lineTracker"])
-  if (timeToTurn<=0):
+  if (turnTimer<=0):
     angle=0
   if (hardware["lineTracker"][0]==1 and
     hardware["lineTracker"][2]==1):
@@ -69,7 +69,7 @@ def Forward(controller,sensors,iteration,currentPosition,nextNode):
   elif(hardware["lineTracker"][2]==1):
     angle=-1*MAX_ANGLE
     turnTimer=TIME_TO_TURN
-  turnTimer=max(timeToTurn-1,0)
+  turnTimer=max(turnTimer-1,0)
   
   # check image tracking for lines ig
   aiData=sensors.ReadAI()
@@ -101,13 +101,8 @@ def Forward(controller,sensors,iteration,currentPosition,nextNode):
   controller.turn_right(angle=angle,speed=DrivingSpeed)
  
   if(timeToLive==0):
-    (x1, y1) = NODE_COORDS[currentPosition]
-    (x2, y2) = NODE_COORDS[nextNode]
-    # approximate the distance remove intersection distance
-    distance = math.hypot(x2 - x1, y2 - y1)-2*(10)
-    
     # Adjust the travel time factor based on your car's speed.
-    travel_time = distance / 50.0  # This factor may need tuning.
+    travel_time = distance / 1.0  # This factor may need tuning.
     # approx 120 iteration per second
     timeToLive = travel_time*120
   if(iteration>=timeToLive):

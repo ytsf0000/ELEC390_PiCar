@@ -11,6 +11,7 @@ currentPosition=None
 nextNode=None
 stateStartIteration=0
 relativeIteration=0
+value=0
 picarx=Picarx()
 car=CarController(picarx)
 sensors=Sensors(picarx)
@@ -45,7 +46,7 @@ def iteration():
   if(CURRENT_STATE == State.Wait):
     stateTransition=Wait()
   elif(CURRENT_STATE==State.Forward):
-    stateTransition=Forward(car,sensors,relativeIteration,currentPosition,nextNode)
+    stateTransition=Forward(car,sensors,relativeIteration,value)
   elif(CURRENT_STATE==State.TurnR):
     TurnR()
   elif(CURRENT_STATE==State.TurnL):

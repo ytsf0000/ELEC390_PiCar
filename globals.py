@@ -301,6 +301,13 @@ NODES_DATA = [
 ]
 
 # contains sequence of movements from one intersection to another
+class State(Enum):
+  Wait=0
+  Forward=1
+  TurnR=2
+  TurnL=3
+  RoundAbout=4
+  Park=5
 
 # List of actions to travel from current intersection to next intersection is retrieved through 
 # PATH_DATA[current intersection]["paths"][(previous intersection, next intersection)]
@@ -572,14 +579,6 @@ class Zone(Enum):
   Residential=4
   Shops=5
   Industrial=6
-
-class State(Enum):
-  Wait=0
-  Forward=1
-  TurnR=2
-  TurnL=3
-  RoundAbout=4
-  Park=5
 
 # temp class while waiting for long term decision
 class Node:
