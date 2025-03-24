@@ -15,7 +15,7 @@ class NodeTraversal:
     def executeInstruction(self,instruction):
         command, value = instruction
         state=ShortTerm.State.Wait
-        if(command=="forwards" or command=="Straight"):
+        if(command=="forwards" or command=="Straight" or command=="straight"):
             state=ShortTerm.State.Forward
         elif(command=="turn_right"):
             state=ShortTerm.State.TurnR
@@ -30,7 +30,6 @@ class NodeTraversal:
         while(ShortTerm.stateTransition==False):
             # TODO update current position
             ShortTerm.iteration()
-            # ShortTerm.stateTransition=True
             continue
 
 

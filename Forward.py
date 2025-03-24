@@ -11,11 +11,15 @@ classes=['duck_regular', 'sign_noentry', 'sign_oneway_left', 'sign_oneway_right'
 
 MAX_ANGLE=40
 camAngle=0
-DrivingSpeed=30
+DrivingSpeed=15
 angle=0
-TIME_TO_TURN=20
+TIME_TO_TURN=11
 turnTimer=0
 timeToLive=0
+
+PAUSE_TIME=20
+pauseTimer=0
+wasStopped=False
 
 # move camera and return closest sign
 def trackSign(aiData,controller):
@@ -35,27 +39,25 @@ def trackSign(aiData,controller):
         if(re.search("^sign_.*$",classes[int(b.cls[0])]) is not None):
           largestArea=b.xywh[0][2]*b.xywh[0][3]
           closestSign=b
-      print(b.xywhn)
-      print(controller.speed)
-      print(math.exp(-camAngle/MAX_ANGLE/2))
       if(float(b.xywhn[0][0])>0.5):
         delta=controller.speed/15-math.exp(-camAngle/MAX_ANGLE/2)
       else:
         delta=-controller.speed/15-math.exp(camAngle/MAX_ANGLE/2)
       delta*=40/180
-      print(delta)
 
   
 
   camAngle=max(min(MAX_ANGLE,camAngle+delta),-MAX_ANGLE)
-  print(camAngle)
   if(closestSign is None):
     camAngle=0
 
   controller.turnCam(camAngle)
   return closestSign
 
-def dodge():
+def dodge(hardware):
+  if (hardware["proximity"]>0 and hardware["proximity"]<25):
+    return True
+    
   return False
 
 # return true if unable to continue without checking long term, false otherwise
@@ -63,15 +65,34 @@ def Forward(controller,sensors,iteration,distance):
   global angle
   global camAngle
 
-  global drivingSpeed
+  global DrivingSpeed
   global turnTimer
   global timeToLive
-  hardware=sensors.ReadHardware()
+  global pauseTimer
+  global wasStopped
   
-  #print(hardware["lineTracker"])
-  if (turnTimer<=0):
+  hardware=sensors.ReadHardware()
+
+  if(timeToLive==0):
+    # Adjust the travel time factor based on your car's speed.
+    travel_time = distance / 50.0  # This factor may need tuning.
+    # approx 120 iteration per second
+    timeToLive = travel_time*120
+    camAngle=0
     angle=0
+    turnTimer=0
+
+  if (turnTimer<=0):
+    angle=-5
+  
   if (hardware["lineTracker"][0]==1 and
+      hardware["lineTracker"][1]==1 and
+      hardware["lineTracker"][2]==1 and
+      wasStopped==False):
+    pauseTimer=PAUSE_TIME
+    wasStopped=True
+    return 0
+  elif (hardware["lineTracker"][0]==1 and
     hardware["lineTracker"][2]==1):
     turnTimer=TIME_TO_TURN
   elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
@@ -82,13 +103,16 @@ def Forward(controller,sensors,iteration,distance):
     turnTimer=TIME_TO_TURN
   turnTimer=max(turnTimer-1,0)
   
+  if(wasStopped==True and pauseTimer<-10):
+    wasStopped=False
+
   # check image tracking for lines ig
   aiData=sensors.ReadAI()
 
   sign=trackSign(aiData,controller)
 
   # store last known sign somewhere since cam might see it when we are besides it
-  if(sign is not None and 1):# at sign
+  if(sign is not None and 0):# at sign
     signType=classes[int(sign.cls[0])]
     if signType=='sign_noentry':
       return 1
@@ -106,17 +130,17 @@ def Forward(controller,sensors,iteration,distance):
       return 0
 
   # avoid things on read
-  if(dodge()):
+  pauseTimer-=1
+  if(dodge(hardware)):
+    controller.turn_right(0,0)
     return 0
-  
-  controller.turn_right(angle=angle,speed=DrivingSpeed)
+
+  if(angle!=0):
+    DrivingSpeed=5
+  else:
+    DrivingSpeed=15
+  controller.turn_right(angle=angle,speed=0 if pauseTimer>0 else DrivingSpeed)
  
-  if(timeToLive==0):
-    # Adjust the travel time factor based on your car's speed.
-    travel_time = distance / 20.0  # This factor may need tuning.
-    # approx 120 iteration per second
-    timeToLive = travel_time*120
-  
   if(iteration>=timeToLive):
     timeToLive=0
     return 1
