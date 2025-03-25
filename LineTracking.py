@@ -1,2 +1,4 @@
 def lineTrackingStatus(px):
-    return px.get_line_status()
+    a= px.get_grayscale_data()
+    t=800
+    return [a[0]>t,a[1]>t,a[2]>t]

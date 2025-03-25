@@ -5,9 +5,10 @@ Path_to_model="models/best_full_integer_quant_edgetpu.tflite"
 class AISensor:
   def run(self,frame):
     # this runs infintely without trigger, result is stored into variable then read
-    # change once camera is implemented
-    self.results=self.model.predict(frame)
+    self.results=self.model.predict(frame,verbose=False)
   def read(self):
     return self.results
   def __init__(self):
-    self.model = YOLO(Path_to_model)  # Load an official model or custom model
+    self.results=None
+    self.ready=False
+    self.model = YOLO(Path_to_model,task="detect")
