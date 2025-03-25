@@ -81,8 +81,25 @@ def TurnR(controller, iteration, angular_distance):
     return 1
   return 0
 
-def TurnL(iteration, angular_distance):
+def TurnL(controller, iteration, angular_distance):
   print("wow we going left")
+  global drivingSpeed
+  global timeToLive
+  
+  #print(hardware["lineTracker"])
+ 
+  if(timeToLive==0):
+    # Adjust the travel time factor based on your car's speed.
+    travel_time = angular_distance / ANGULAR_SPEED
+    # approx 120 iteration per second
+    timeToLive = travel_time*120
+
+  controller.turn_left(angle=MAX_ANGLE,speed=DrivingSpeed)
+
+  if(iteration>=timeToLive):
+    timeToLive = 0
+    return 1
+  return 0
 
 # return true if unable to continue without checking long term, false otherwise
 def Forward(controller,sensors,iteration,distance):
