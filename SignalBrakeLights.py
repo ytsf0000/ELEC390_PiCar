@@ -23,5 +23,4 @@ def signal_right(times = 5, interval = 0.5):
         
 if __name__ == "__main__":
     signal_left()
-    time.sleep(10)
     signal_right()

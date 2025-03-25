@@ -3,6 +3,7 @@ from urllib import request
 
 # Server details will change between lab, home, and competition, so saving them somehwere easy to edit
 server_ip = "192.168.56.1"
+#server_ip = "vpfs.lan"
 server = f"http://{server_ip}:5000"
 authKey = "45" # For the lab, your auth key is your team number, at competition this will be a secret key
 team = 45
@@ -45,17 +46,20 @@ def get_fare():
     # Check the status of our fare
     res = request.urlopen(server + "/fares/current/" + str(team))
     # Verify that we got HTTP OK
-    if res.status == 200:
+    if (res.status == 200):
         # Decode JSON data
         data = json.loads(res.read())
         # Report fare status
         if fare is not None:
             print("Have fare", data['fare'])
+            return ("Claim fare",data['fare'])
         else:
             print("No fare claimed", data['message'])
+            return ("no fare",data['message'])
     else:
         # Report HTTP request error
         print("Got status", str(res.status), "checking fare")
+        return ("http err",res.status)
 
 
 def get_locations():

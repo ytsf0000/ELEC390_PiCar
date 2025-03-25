@@ -2,7 +2,7 @@ import cv2
 from picamera2 import Picamera2
 import threading
 from AIRecog import AISensor
-from LineTracking import lineTrackingStatus
+from LineTracking import lineTrackingStatus,lineTrackingStatusRaw
 from ProximitySensor import ProximitySensor
 from time import sleep
 
@@ -22,7 +22,7 @@ class Sensors:
   def ReadAI(self):
     return self.ai.results
   def ReadHardware(self):
-    result={"proximity":ProximitySensor(self.car),"lineTracker":lineTrackingStatus(self.car)}
+    result={"proximity":ProximitySensor(self.car),"lineTracker":lineTrackingStatus(self.car),"lineTrackerRaw":lineTrackingStatusRaw(self.car)}
     return result
   def ReadImgProcessing(self):
     return 0

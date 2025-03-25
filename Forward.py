@@ -1,6 +1,7 @@
 import re
 import math
 from globals import State,NEXT_STATE,NODE_COORDS
+import math
 
 
 # V1 classes
@@ -10,9 +11,10 @@ classes=['duck_regular', 'sign_noentry', 'sign_oneway_left', 'sign_oneway_right'
 
 
 MAX_ANGLE=40
-ANGULAR_SPEED = 60
+ANGULAR_SPEED = 120
 camAngle=0
-DrivingSpeed=15
+SPEED=17
+DrivingSpeed=SPEED
 angle=0
 TIME_TO_TURN=11
 turnTimer=0
@@ -118,6 +120,7 @@ def TurnL(controller, sensors, iteration, angular_distance):
   global timeToLive
   global pauseTimer
   global wasStopped
+  global angle
 
   hardware=sensors.ReadHardware()
  
@@ -196,7 +199,7 @@ def Forward(controller,sensors,iteration,distance):
   elif (hardware["lineTracker"][0]==1 and
     hardware["lineTracker"][2]==1):
     turnTimer=TIME_TO_TURN
-  elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
+  elif((hardware["lineTracker"][0]==1 or hardware["lineTrackerRaw"][0] > 2000) and turnTimer<=0):
     angle=MAX_ANGLE
     turnTimer=TIME_TO_TURN
   elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
@@ -234,12 +237,13 @@ def Forward(controller,sensors,iteration,distance):
   pauseTimer-=1
   if(dodge(hardware)):
     controller.turn_right(0,0)
+    timeToLive+=1
     return 0
 
-  if(angle!=0):
+  if(abs(angle)>15):
     DrivingSpeed=5
   else:
-    DrivingSpeed=15
+    DrivingSpeed=SPEED
   controller.turn_right(angle=angle,speed=0 if pauseTimer>0 else DrivingSpeed)
  
   if(iteration>=timeToLive):

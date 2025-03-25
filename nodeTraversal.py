@@ -3,6 +3,7 @@ from pathfinding import a_star_search, find_nearest_node
 import ShortTerm
 import ap
 import io
+import time
 
 class NodeTraversal:
     def __init__(self):
@@ -103,18 +104,13 @@ if __name__ == "__main__":
     start_path = 0
     while(1):
         if(start_fare):
-            ap.get_fare()
-            buffer = io.StringIO()
-
-            with contextlib.redirect_stdout(buffer):
-                func(*args, **kwargs)
-            # Retrieve the captured output
-            output = buffer.getvalue()
+            fareStatus,fare=ap.get_fare()
             
             # Check if the specific substring is present
-            if "Have fare" in output:
+            if "Claim fare" == fareStatus:
                 print("Collected Fare succesfully")
             else:
+                time.sleep(0.5)
                 continue
 
             start_end_points = ap.get_locations() #starxy, endxy
