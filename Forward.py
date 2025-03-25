@@ -61,40 +61,100 @@ def dodge(hardware):
     
   return False
 
-def TurnR(controller, iteration, angular_distance):
+def TurnR(controller, sensors, iteration, angular_distance):
   print("wow we going right")
-  global drivingSpeed
+  global DrivingSpeed
+  global turnTimer # turning as a result of greyscale line sensor
   global timeToLive
-  
-  #print(hardware["lineTracker"])
+  global pauseTimer
+  global wasStopped
+
+  hardware=sensors.ReadHardware()
  
   if(timeToLive==0):
     # Adjust the travel time factor based on your car's speed.
     travel_time = angular_distance / ANGULAR_SPEED
     # approx 120 iteration per second
     timeToLive = travel_time*120
+    turnTimer = 0
 
-  controller.turn_right(angle=MAX_ANGLE,speed=DrivingSpeed)
+  if (turnTimer<=0):
+    angle = MAX_ANGLE
+
+  if (hardware["lineTracker"][0]==1 and
+      hardware["lineTracker"][1]==1 and
+      hardware["lineTracker"][2]==1 and
+      wasStopped==False):
+    pauseTimer=PAUSE_TIME
+    wasStopped=True
+    return 0
+  elif (hardware["lineTracker"][0]==1 and
+    hardware["lineTracker"][2]==1):
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
+    angle=60
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
+    angle=-1*60
+    turnTimer=TIME_TO_TURN
+  turnTimer=max(turnTimer-1,0)
+
+  if(wasStopped==True and pauseTimer<-10):
+    wasStopped=False
+
+  pauseTimer-=1
+
+  controller.turn_right(angle=angle,speed=0 if pauseTimer>0 else DrivingSpeed)
 
   if(iteration>=timeToLive):
     timeToLive = 0
     return 1
   return 0
 
-def TurnL(controller, iteration, angular_distance):
-  print("wow we going left")
-  global drivingSpeed
+def TurnL(controller, sensors, iteration, angular_distance):
+  print("wow we going right")
+  global DrivingSpeed
+  global turnTimer # turning as a result of greyscale line sensor
   global timeToLive
-  
-  #print(hardware["lineTracker"])
+  global pauseTimer
+  global wasStopped
+
+  hardware=sensors.ReadHardware()
  
   if(timeToLive==0):
     # Adjust the travel time factor based on your car's speed.
     travel_time = angular_distance / ANGULAR_SPEED
     # approx 120 iteration per second
     timeToLive = travel_time*120
+    turnTimer = 0
 
-  controller.turn_left(angle=MAX_ANGLE,speed=DrivingSpeed)
+  if (turnTimer<=0):
+    angle = MAX_ANGLE
+
+  if (hardware["lineTracker"][0]==1 and
+      hardware["lineTracker"][1]==1 and
+      hardware["lineTracker"][2]==1 and
+      wasStopped==False):
+    pauseTimer=PAUSE_TIME
+    wasStopped=True
+    return 0
+  elif (hardware["lineTracker"][0]==1 and
+    hardware["lineTracker"][2]==1):
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
+    angle=-1*60
+    turnTimer=TIME_TO_TURN
+  elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
+    angle=60
+    turnTimer=TIME_TO_TURN
+  turnTimer=max(turnTimer-1,0)
+
+  if(wasStopped==True and pauseTimer<-10):
+    wasStopped=False
+
+  pauseTimer-=1
+
+  controller.turn_left(angle=angle,speed=0 if pauseTimer>0 else DrivingSpeed)
 
   if(iteration>=timeToLive):
     timeToLive = 0
