@@ -95,7 +95,7 @@ def TurnR(controller, sensors, iteration, angular_distance):
     angle=60
     turnTimer=TIME_TO_TURN
   elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
-    angle=-1*60
+    angle=-1*60 + MAX_ANGLE
     turnTimer=TIME_TO_TURN
   turnTimer=max(turnTimer-1,0)
 
@@ -142,7 +142,7 @@ def TurnL(controller, sensors, iteration, angular_distance):
     hardware["lineTracker"][2]==1):
     turnTimer=TIME_TO_TURN
   elif(hardware["lineTracker"][0]==1 and turnTimer<=0):
-    angle=-1*60
+    angle=-1*60 + MAX_ANGLE
     turnTimer=TIME_TO_TURN
   elif(hardware["lineTracker"][2]==1 and turnTimer<=0):
     angle=60
