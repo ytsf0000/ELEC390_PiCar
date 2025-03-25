@@ -1,6 +1,7 @@
 from globals import PATH_DATA
 from pathfinding import a_star_search, find_nearest_node
 import ShortTerm
+import ap
 
 class NodeTraversal:
     def __init__(self):
@@ -36,14 +37,14 @@ class NodeTraversal:
 
         return
 
-    def execute_path(self, start_node, dest_x, dest_y):
+    def execute_path(self, start_node, end_node):
         """
         Finds the nearest node to (dest_x, dest_y), computes the path using A* search,
         and executes the movement instructions step by step.
         """
         # Find nearest destination node
-        destination_node = find_nearest_node(dest_x, dest_y)
-        print(f"Nearest node to ({dest_x}, {dest_y}) is: {destination_node}")
+        #destination_node = find_nearest_node(dest_x, dest_y)
+        #print(f"Nearest node to ({dest_x}, {dest_y}) is: {destination_node}")
 
         # Get the path from start_node to destination_node
         path = a_star_search(start_node, destination_node)
@@ -97,5 +98,28 @@ if __name__ == "__main__":
     traversal = NodeTraversal()
     ShortTerm.init()
 
-    # Example: Start at 'PondsideAve.:QuackSt' and go to (585, 135)
-    traversal.execute_path("PondsideAve.:QuackSt", 585, 135)
+    start_fare = 1
+    start_path = 0
+    while(1):
+        if(start_fare):
+            ap.get_fare()
+            start_end_points = ap.get_locations() #starxy, endxy
+            start_car_loc = ap.get_current_loc() #x, y
+
+            car_start_node = find_nearest_node(start_car_loc[0], start_car_loc[1])
+            route_start_node = find_nearest_node(start_end_points[0], start_end_points[1])
+            route_end_node = find_nearest_node(start_end_points[2], start_end_points[3])
+
+            traversal.execute_path(car_start_node, route_start_node)
+
+            start_fare = 0
+            start_path = 1
+        if(start_path):
+            traversal.execute_path(route_start_node, route_end_node)
+
+            start_path = 0
+            start_fare = 1
+        
+
+
+
